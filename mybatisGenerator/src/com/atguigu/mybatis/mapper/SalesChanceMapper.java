@@ -4,8 +4,9 @@ import com.atguigu.mybatis.entities.SalesChance;
 import com.atguigu.mybatis.entities.SalesChanceExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-
+//zxzxcz
 public interface SalesChanceMapper {
+	
     int countByExample(SalesChanceExample example);
 
     int deleteByExample(SalesChanceExample example);
