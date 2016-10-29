@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.mybatis.mapper.AuthorityMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.mybatis.entities.Authority" >
+    <result column="id" property="id" jdbcType="REAL" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="display_name" property="displayName" jdbcType="VARCHAR" />
+    <result column="permissions" property="permissions" jdbcType="VARCHAR" />
+    <result column="parent_authority_id" property="parentAuthorityId" jdbcType="REAL" />
+    <result column="url" property="url" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, name, display_name, permissions, parent_authority_id, url
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atguigu.mybatis.entities.AuthorityExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from authorities
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.atguigu.mybatis.entities.AuthorityExample" >
+    delete from authorities
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.mybatis.entities.Authority" >
+    insert into authorities (id, name, display_name, 
+      permissions, parent_authority_id, url
+      )
+    values (#{id,jdbcType=REAL}, #{name,jdbcType=VARCHAR}, #{displayName,jdbcType=VARCHAR}, 
+      #{permissions,jdbcType=VARCHAR}, #{parentAuthorityId,jdbcType=REAL}, #{url,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.mybatis.entities.Authority" >
+    insert into authorities
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="displayName != null" >
+        display_name,
+      </if>
+      <if test="permissions != null" >
+        permissions,
+      </if>
+      <if test="parentAuthorityId != null" >
+        parent_authority_id,
+      </if>
+      <if test="url != null" >
+        url,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=REAL},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="displayName != null" >
+        #{displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="permissions != null" >
+        #{permissions,jdbcType=VARCHAR},
+      </if>
+      <if test="parentAuthorityId != null" >
+        #{parentAuthorityId,jdbcType=REAL},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.mybatis.entities.AuthorityExample" resultType="java.lang.Integer" >
+    select count(*) from authorities
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update authorities
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=REAL},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.displayName != null" >
+        display_name = #{record.displayName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.permissions != null" >
+        permissions = #{record.permissions,jdbcType=VARCHAR},
+      </if>
+      <if test="record.parentAuthorityId != null" >
+        parent_authority_id = #{record.parentAuthorityId,jdbcType=REAL},
+      </if>
+      <if test="record.url != null" >
+        url = #{record.url,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update authorities
+    set id = #{record.id,jdbcType=REAL},
+      name = #{record.name,jdbcType=VARCHAR},
+      display_name = #{record.displayName,jdbcType=VARCHAR},
+      permissions = #{record.permissions,jdbcType=VARCHAR},
+      parent_authority_id = #{record.parentAuthorityId,jdbcType=REAL},
+      url = #{record.url,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

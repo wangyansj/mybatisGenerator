@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.mybatis.mapper.SalesPlanMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.mybatis.entities.SalesPlan" >
+    <result column="id" property="id" jdbcType="REAL" />
+    <result column="plan_date" property="planDate" jdbcType="TIMESTAMP" />
+    <result column="plan_result" property="planResult" jdbcType="VARCHAR" />
+    <result column="todo" property="todo" jdbcType="VARCHAR" />
+    <result column="chance_id" property="chanceId" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, plan_date, plan_result, todo, chance_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atguigu.mybatis.entities.SalesPlanExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sales_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.atguigu.mybatis.entities.SalesPlanExample" >
+    delete from sales_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.mybatis.entities.SalesPlan" >
+    insert into sales_plan (id, plan_date, plan_result, 
+      todo, chance_id)
+    values (#{id,jdbcType=REAL}, #{planDate,jdbcType=TIMESTAMP}, #{planResult,jdbcType=VARCHAR}, 
+      #{todo,jdbcType=VARCHAR}, #{chanceId,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.mybatis.entities.SalesPlan" >
+    insert into sales_plan
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="planDate != null" >
+        plan_date,
+      </if>
+      <if test="planResult != null" >
+        plan_result,
+      </if>
+      <if test="todo != null" >
+        todo,
+      </if>
+      <if test="chanceId != null" >
+        chance_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=REAL},
+      </if>
+      <if test="planDate != null" >
+        #{planDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="planResult != null" >
+        #{planResult,jdbcType=VARCHAR},
+      </if>
+      <if test="todo != null" >
+        #{todo,jdbcType=VARCHAR},
+      </if>
+      <if test="chanceId != null" >
+        #{chanceId,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.mybatis.entities.SalesPlanExample" resultType="java.lang.Integer" >
+    select count(*) from sales_plan
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sales_plan
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=REAL},
+      </if>
+      <if test="record.planDate != null" >
+        plan_date = #{record.planDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.planResult != null" >
+        plan_result = #{record.planResult,jdbcType=VARCHAR},
+      </if>
+      <if test="record.todo != null" >
+        todo = #{record.todo,jdbcType=VARCHAR},
+      </if>
+      <if test="record.chanceId != null" >
+        chance_id = #{record.chanceId,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sales_plan
+    set id = #{record.id,jdbcType=REAL},
+      plan_date = #{record.planDate,jdbcType=TIMESTAMP},
+      plan_result = #{record.planResult,jdbcType=VARCHAR},
+      todo = #{record.todo,jdbcType=VARCHAR},
+      chance_id = #{record.chanceId,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>

@@ -1,0 +1,270 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.atguigu.mybatis.mapper.SalesChanceMapper" >
+  <resultMap id="BaseResultMap" type="com.atguigu.mybatis.entities.SalesChance" >
+    <result column="id" property="id" jdbcType="REAL" />
+    <result column="contact" property="contact" jdbcType="VARCHAR" />
+    <result column="contact_tel" property="contactTel" jdbcType="VARCHAR" />
+    <result column="create_date" property="createDate" jdbcType="TIMESTAMP" />
+    <result column="cust_name" property="custName" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="designee_date" property="designeeDate" jdbcType="TIMESTAMP" />
+    <result column="rate" property="rate" jdbcType="REAL" />
+    <result column="source" property="source" jdbcType="VARCHAR" />
+    <result column="status" property="status" jdbcType="REAL" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="created_user_id" property="createdUserId" jdbcType="REAL" />
+    <result column="designee_id" property="designeeId" jdbcType="REAL" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, contact, contact_tel, create_date, cust_name, description, designee_date, rate, 
+    source, status, title, created_user_id, designee_id
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.atguigu.mybatis.entities.SalesChanceExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from sales_chances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.atguigu.mybatis.entities.SalesChanceExample" >
+    delete from sales_chances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.atguigu.mybatis.entities.SalesChance" >
+    insert into sales_chances (id, contact, contact_tel, 
+      create_date, cust_name, description, 
+      designee_date, rate, source, 
+      status, title, created_user_id, 
+      designee_id)
+    values (#{id,jdbcType=REAL}, #{contact,jdbcType=VARCHAR}, #{contactTel,jdbcType=VARCHAR}, 
+      #{createDate,jdbcType=TIMESTAMP}, #{custName,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{designeeDate,jdbcType=TIMESTAMP}, #{rate,jdbcType=REAL}, #{source,jdbcType=VARCHAR}, 
+      #{status,jdbcType=REAL}, #{title,jdbcType=VARCHAR}, #{createdUserId,jdbcType=REAL}, 
+      #{designeeId,jdbcType=REAL})
+  </insert>
+  <insert id="insertSelective" parameterType="com.atguigu.mybatis.entities.SalesChance" >
+    insert into sales_chances
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="contact != null" >
+        contact,
+      </if>
+      <if test="contactTel != null" >
+        contact_tel,
+      </if>
+      <if test="createDate != null" >
+        create_date,
+      </if>
+      <if test="custName != null" >
+        cust_name,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="designeeDate != null" >
+        designee_date,
+      </if>
+      <if test="rate != null" >
+        rate,
+      </if>
+      <if test="source != null" >
+        source,
+      </if>
+      <if test="status != null" >
+        status,
+      </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="createdUserId != null" >
+        created_user_id,
+      </if>
+      <if test="designeeId != null" >
+        designee_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=REAL},
+      </if>
+      <if test="contact != null" >
+        #{contact,jdbcType=VARCHAR},
+      </if>
+      <if test="contactTel != null" >
+        #{contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="createDate != null" >
+        #{createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="custName != null" >
+        #{custName,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="designeeDate != null" >
+        #{designeeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="rate != null" >
+        #{rate,jdbcType=REAL},
+      </if>
+      <if test="source != null" >
+        #{source,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        #{status,jdbcType=REAL},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="createdUserId != null" >
+        #{createdUserId,jdbcType=REAL},
+      </if>
+      <if test="designeeId != null" >
+        #{designeeId,jdbcType=REAL},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.atguigu.mybatis.entities.SalesChanceExample" resultType="java.lang.Integer" >
+    select count(*) from sales_chances
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update sales_chances
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=REAL},
+      </if>
+      <if test="record.contact != null" >
+        contact = #{record.contact,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contactTel != null" >
+        contact_tel = #{record.contactTel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDate != null" >
+        create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.custName != null" >
+        cust_name = #{record.custName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.designeeDate != null" >
+        designee_date = #{record.designeeDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.rate != null" >
+        rate = #{record.rate,jdbcType=REAL},
+      </if>
+      <if test="record.source != null" >
+        source = #{record.source,jdbcType=VARCHAR},
+      </if>
+      <if test="record.status != null" >
+        status = #{record.status,jdbcType=REAL},
+      </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdUserId != null" >
+        created_user_id = #{record.createdUserId,jdbcType=REAL},
+      </if>
+      <if test="record.designeeId != null" >
+        designee_id = #{record.designeeId,jdbcType=REAL},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update sales_chances
+    set id = #{record.id,jdbcType=REAL},
+      contact = #{record.contact,jdbcType=VARCHAR},
+      contact_tel = #{record.contactTel,jdbcType=VARCHAR},
+      create_date = #{record.createDate,jdbcType=TIMESTAMP},
+      cust_name = #{record.custName,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      designee_date = #{record.designeeDate,jdbcType=TIMESTAMP},
+      rate = #{record.rate,jdbcType=REAL},
+      source = #{record.source,jdbcType=VARCHAR},
+      status = #{record.status,jdbcType=REAL},
+      title = #{record.title,jdbcType=VARCHAR},
+      created_user_id = #{record.createdUserId,jdbcType=REAL},
+      designee_id = #{record.designeeId,jdbcType=REAL}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+</mapper>
